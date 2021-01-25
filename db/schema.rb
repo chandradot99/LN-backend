@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2021_01_25_133730) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -23,7 +26,7 @@ ActiveRecord::Schema.define(version: 2021_01_25_133730) do
     t.string "email"
     t.string "status"
     t.string "mobile_number"
-    t.integer "role_id", null: false
+    t.bigint "role_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["role_id"], name: "index_users_on_role_id"
