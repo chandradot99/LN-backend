@@ -8,7 +8,9 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @user = user.create!(user_params)
+    params = user_params
+    params[:status] = ['Active', 'Pending', 'Inactive'].sample
+    @user = User.create!(params)
     json_response(@user, :created)
   end
 
@@ -19,14 +21,14 @@ class UsersController < ApplicationController
 
   # PUT /users/:id
   def update
-    @user.update(user_params)
-    head :no_content
+    @user.update!(user_params)
+    json_response(@user, :ok)
   end
 
   # DELETE /users/:id
   def destroy
     @user.destroy
-    head :no_content
+    json_response(@user, :ok)
   end
 
   private
