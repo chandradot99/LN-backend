@@ -9,7 +9,11 @@ class UsersController < ApplicationController
   # POST /users
   def create
     params = user_params
+    password = SecureRandom.hex(8)
+
     params[:status] = ['Active', 'Pending', 'Inactive'].sample
+    params[:password] = password
+    params[:password_confirmation] = password
     @user = User.create!(params)
     json_response(@user, :created)
   end

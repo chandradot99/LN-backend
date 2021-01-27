@@ -3,8 +3,8 @@
 # Table name: users
 #
 #  id              :bigint           not null, primary key
-#  name            :string
-#  email           :string
+#  name            :string           not null
+#  email           :string           not null
 #  status          :string
 #  mobile_number   :string
 #  role_id         :bigint           not null

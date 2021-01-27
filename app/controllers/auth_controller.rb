@@ -12,7 +12,13 @@ class AuthController < ApplicationController
   end
 
   def sign_up
-    @user = User.create!(sign_up_params)
+    params = sign_up_params
+
+    # Assign Admin Role to User
+    params[:role_id] = Role.find_by(name: 'admin').id
+    params[:status] = 'Active'
+
+    @user = User.create!(params)
     auth_token = JsonWebToken.encode(user_id: @user.id)
 
     json_response({ user: @user, auth_token: auth_token })
@@ -22,6 +28,6 @@ class AuthController < ApplicationController
 
   def sign_up_params
     # whitelist params
-    params.permit(:name, :email, :mobile_number, :role_id, :password, :password_confirmation)
+    params.permit(:name, :email, :mobile_number, :password, :password_confirmation)
   end
  end
